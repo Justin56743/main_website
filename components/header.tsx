@@ -12,9 +12,7 @@ export function Header() {
           <Button variant="ghost" asChild className="hover:text-primary">
             <Link href="/login">Login</Link>
           </Button>
-          <Button asChild className="bg-primary hover:bg-primary/80 transition-colors">
-            <Link href="/signup">Sign Up</Link>
-          </Button>
+        
         </div>
       </nav>
     </header>
