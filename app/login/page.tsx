@@ -30,13 +30,16 @@ export default async function LoginPage(){
                     Sign in with Google
                     </Button>
                 </form>
-                <Button
-                  variant="outline"
-                  className="w-full border-primary/20 hover:bg-primary/5 space-x-2 h-12"
-                >
-                  {/* <Github className="mr-2 h-5 w-5" /> */}
-                  Sign in with GitHub
-                </Button>
+                <form action={async() =>{
+                    "use server";
+                    await signIn("github")
+                }}>
+                    <Button variant="outline"
+                    className="w-full border-primary/20 hover:bg-primary/5 space-x-2 h-12"
+                    >
+                    Sign in with Github
+                    </Button>
+                </form>
               </div>
             </CardContent>
           </Card>

@@ -5,11 +5,13 @@ import { ArrowRight, Brain, Fingerprint, Zap } from "lucide-react"
 import Link from "next/link"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
+import { auth } from "@/lib/auth"
+import { redirect } from "next/navigation"
 
-export default function LandingPage() {
+export default async function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col gradient-bg">
-      <Header />
+      <Header/>
       <main className="flex-grow container mx-auto px-4 py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,11 +32,20 @@ export default function LandingPage() {
               Uncover your personality type using cutting-edge artificial intelligence.
             </p>
           </motion.div>
-          <Button size="lg" asChild className="bg-primary hover:bg-primary/80 transition-colors">
-            <Link href="/questionnaire">
-              Get Started <ArrowRight className="ml-2" />
-            </Link>
-          </Button>
+          {/* <form action={async()=>{
+            "use server"
+            const session = await auth()
+            if(session?.user) {
+              redirect("/questionnaire")
+            }
+            else redirect('/login')
+          }}> */}
+            <Button size="lg" asChild className="bg-primary hover:bg-primary/80 transition-colors">
+              <Link href="/questionnaire">
+                Get Started <ArrowRight className="ml-2" />
+              </Link>
+            </Button>
+           {/* </form> */}
         </motion.div>
 
         <motion.div
