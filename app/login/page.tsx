@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 export default async function LoginPage(){
     const session = await auth();
     if(session?.user){
-        redirect("/dashboard")
+        redirect("/questionnaire")
     }
     return <div className="min-h-screen flex flex-col gradient-bg">
         <main className="flex-grow flex items-center justify-center p-4">

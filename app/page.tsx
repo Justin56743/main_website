@@ -7,8 +7,12 @@ import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
+import GetStartedButton from "@/components/landing-get-started"
+import { handleGetStarted } from "./actions/auth"
 
-export default async function LandingPage() {
+
+export default function LandingPage() {
+
   return (
     <div className="min-h-screen flex flex-col gradient-bg">
       <Header/>
@@ -32,7 +36,7 @@ export default async function LandingPage() {
               Uncover your personality type using cutting-edge artificial intelligence.
             </p>
           </motion.div>
-          {/* <form action={async()=>{
+          {/* <form action={ async() => {
             "use server"
             const session = await auth()
             if(session?.user) {
@@ -40,12 +44,13 @@ export default async function LandingPage() {
             }
             else redirect('/login')
           }}> */}
-            <Button size="lg" asChild className="bg-primary hover:bg-primary/80 transition-colors">
-              <Link href="/questionnaire">
+            <Button size="lg" onClick={handleGetStarted} className="bg-primary hover:bg-primary/80 transition-colors">
+              {/* <Link href="/questionnaire"> */}
                 Get Started <ArrowRight className="ml-2" />
-              </Link>
+              {/* </Link> */}
             </Button>
            {/* </form> */}
+           {/* <GetStartedButton /> */}
         </motion.div>
 
         <motion.div

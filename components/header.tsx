@@ -1,6 +1,10 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
+import {
+  DropdownMenu,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@radix-ui/react-dropdown-menu"
 
 export function Header() {
   return (
@@ -10,9 +14,7 @@ export function Header() {
           AI Personality
         </Link>
         <div className="space-x-4">
-          <Button variant="ghost" asChild className="hover:text-primary">
-            <Link href="/login">Login</Link>
-          </Button>
+        
         
         </div>
       </nav>
