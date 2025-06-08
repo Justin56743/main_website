@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from '@/components/ui/button';
-import { signOut } from '@/lib/auth';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { motion } from "framer-motion"
