@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Send request to Flask API
-    const flaskResponse = await fetch('http://localhost:5000/api/predict', {
+    const flaskResponse = await fetch('https://backend-klbu.onrender.com/predict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ features: req.body.features }),
