@@ -1,5 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -35,10 +36,12 @@ export function Header() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="rounded-full h-10 w-10 p-0">
                   {session.user?.image ? (
-                    <img
+                    <Image
                       src={session.user.image}
                       alt="Profile photo"
-                      className="rounded-full h-8 w-8"
+                      width={32}
+                      height={32}
+                      className="rounded-full"
                       referrerPolicy="no-referrer"
                     />
                   ) : (
@@ -52,10 +55,12 @@ export function Header() {
                 <DropdownMenuLabel>
                   <div className="flex items-center gap-3">
                     {session.user?.image && (
-                      <img
+                      <Image
                         src={session.user.image}
                         alt="Profile photo"
-                        className="rounded-full h-8 w-8"
+                        width={32}
+                        height={32}
+                        className="rounded-full"
                         referrerPolicy="no-referrer"
                       />
                     )}

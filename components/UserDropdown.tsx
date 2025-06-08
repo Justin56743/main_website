@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 
 interface DropdownMenuProps {
   user: {
@@ -42,10 +43,12 @@ const AvatarDropdown = ({ user, onLogout }: DropdownMenuProps) => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center focus:outline-none"
       >
-        <img
+        <Image
           src={user.avatarUrl}
           alt="User avatar"
-          className="w-10 h-10 rounded-full border-2 border-gray-200 hover:border-gray-300 transition-colors"
+          width={40}
+          height={40}
+          className="rounded-full border-2 border-gray-200 hover:border-gray-300 transition-colors"
         />
       </button>
 

@@ -42,10 +42,14 @@ interface PredictionResult {
   details?: string;
 }
 
+interface RawDetails {
+  [key: string]: unknown;
+}
+
 export default function Dashboard() {
   const searchParams = useSearchParams();
   const [result, setResult] = useState<PredictionResult | null>(null);
-  const [setRawDetails] = useState<any>(null);
+  const [rawDetails, setRawDetails] = useState<RawDetails | null>(null);
 
   useEffect(() => {
     const cluster = searchParams.get('cluster');
@@ -66,7 +70,7 @@ export default function Dashboard() {
         }
       }
     }
-  }, [searchParams]);
+  }, [searchParams, setRawDetails]);
 
   return (
     <div className="dashboard-container">
