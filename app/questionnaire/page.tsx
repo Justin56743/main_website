@@ -81,8 +81,7 @@ export default function QuestionnairePage() {
     Array.from({length: questions.length}, () => Math.floor(Math.random() * 5) + 1)
   );
   const router = useRouter();
-  // const [answers, setAnswers] = useState<number[]>(Array(questions.length).fill(0));
-  // const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
   const startIndex = currentPage * QUESTIONS_PER_PAGE;
@@ -112,21 +111,15 @@ export default function QuestionnairePage() {
     }
   }
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     handleSubmit();
-  //   }, 1000); // Submit automatically after 1 second
-
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   const handleSubmit = async () => {
     try {
+      setIsSubmitting(true);
       if (answers.some((answer) => answer === 0)) {
         throw new Error('Please answer all questions before submitting.');
       }
 
-      const response = await fetch('http://localhost:5000/api/predict', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://backend-klbu.onrender.com';
+      const response = await fetch(`${apiUrl}/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -147,6 +140,9 @@ export default function QuestionnairePage() {
       router.push(`/dashboard?cluster=${result.cluster}&traits=${encodeURIComponent(result.traits)}`);
     } catch (error) {
       console.error('Error submitting answers:', error);
+      alert('Failed to submit answers. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -242,10 +238,10 @@ export default function QuestionnairePage() {
                 {isLastPage ? (
                   <Button
                     onClick={handleSubmit}
-                    disabled={!hasAnsweredAll}
+                    disabled={!hasAnsweredAll || isSubmitting}
                     className="bg-primary hover:bg-primary/80 transition-colors"
                   >
-                    Submit All
+                    {isSubmitting ? 'Submitting...' : 'Submit All'}
                     <Send className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
