@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { saveAssessmentResponse } from "@/app/actions/assessment"
 
 // Full set of 50 questions
 const questions = [
@@ -139,6 +140,10 @@ export default function QuestionnairePage() {
 
       const result = await response.json();
       console.log('Prediction Result:', result);
+
+      // Save the assessment response to the database
+      await saveAssessmentResponse(answers, result.cluster, result.traits);
+
       router.push(`/dashboard?cluster=${result.cluster}&traits=${encodeURIComponent(result.traits)}`);
     } catch (error) {
       console.error('Error submitting answers:', error);

@@ -10,9 +10,16 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { User } from "lucide-react" // Import an icon for fallback
+import { useRouter } from "next/navigation"
 
 export function Header() {
   const { data: session, status } = useSession()
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false })
+    router.push('/')
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
@@ -41,7 +48,7 @@ export function Header() {
                   )}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
+              <DropdownMenuContent align="end">
                 <DropdownMenuLabel>
                   <div className="flex items-center gap-3">
                     {session.user?.image && (
@@ -63,12 +70,12 @@ export function Header() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuGroup>
-                  <DropdownMenuItem asChild>
+                  {/* <DropdownMenuItem asChild>
                     <Link href="/profile" className="cursor-pointer">
                       Profile
                     </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => signOut()}>
+                  </DropdownMenuItem> */}
+                  <DropdownMenuItem onClick={handleSignOut}>
                     Logout
                   </DropdownMenuItem>
                 </DropdownMenuGroup>

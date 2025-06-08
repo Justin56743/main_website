@@ -17,6 +17,7 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
+  assessmentResponses AssessmentResponse[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -75,4 +76,17 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([userId, credentialID])
+}
+
+model AssessmentResponse {
+  id        String   @id @default(cuid())
+  userId    String   // Foreign key to link to the User
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
+
+  answers   Int[]    // To store the array of answers, e.g., [3, 2, 5, ...]
+  cluster   Int      // To store the resulting cluster, e.g., 0
+  traits    String   // To store the resulting traits, e.g., "Type A - Analytical Leader"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
