@@ -2,14 +2,9 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight, Brain, Fingerprint, Zap } from "lucide-react"
-import Link from "next/link"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
-import { auth } from "@/lib/auth"
-import { redirect } from "next/navigation"
-import GetStartedButton from "@/components/landing-get-started"
 import { handleGetStarted } from "./actions/auth"
-
 
 export default function LandingPage() {
 

@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth, signIn } from "@/lib/auth";
-import { Separator } from "@radix-ui/react-separator";
 import { redirect } from "next/navigation";
 
 export default async function LoginPage(){

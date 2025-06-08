@@ -8,7 +8,6 @@ import { Brain, BarChartIcon as ChartBar, Compass, Focus, LightbulbIcon, Target 
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-
 const personalityTraits = [
   {
     icon: Target,
@@ -46,7 +45,7 @@ interface PredictionResult {
 export default function Dashboard() {
   const searchParams = useSearchParams();
   const [result, setResult] = useState<PredictionResult | null>(null);
-  const [rawDetails, setRawDetails] = useState<any>(null);
+  const [setRawDetails] = useState<any>(null);
 
   useEffect(() => {
     const cluster = searchParams.get('cluster');
@@ -142,7 +141,7 @@ export default function Dashboard() {
                       "Management Consulting",
                       "Research Director",
                       "Technology Leadership",
-                    ].map((career, index) => (
+                    ].map((career) => (
                       <li key={career} className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-primary" />
                         <span>{career}</span>
