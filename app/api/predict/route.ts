@@ -1,21 +1,22 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
+export async function POST(request: NextRequest) {
   try {
+    const body = await request.json();
+
     // Validate request body
-    if (!req.body || !Array.isArray(req.body.features)) {
-      return res.status(400).json({ error: 'Invalid request body' });
+    if (!body || !Array.isArray(body.features)) {
+      return NextResponse.json(
+        { error: 'Invalid request body' },
+        { status: 400 }
+      );
     }
 
     // Send request to Flask API
     const flaskResponse = await fetch('https://backend-klbu.onrender.com/predict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ features: req.body.features }),
+      body: JSON.stringify({ features: body.features }),
     });
 
     if (!flaskResponse.ok) {
@@ -24,9 +25,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Parse Flask response
     const data = await flaskResponse.json();
-    res.status(200).json(data);
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Prediction error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { motion } from "framer-motion"
 import { Brain, BarChartIcon as ChartBar, Compass, Focus, LightbulbIcon, Target } from "lucide-react"
 import { Header } from "@/components/header"
@@ -46,7 +46,7 @@ interface RawDetails {
   [key: string]: unknown;
 }
 
-export default function Dashboard() {
+function DashboardContent() {
   const searchParams = useSearchParams();
   const [result, setResult] = useState<PredictionResult | null>(null);
   const [rawDetails, setRawDetails] = useState<RawDetails | null>(null);
@@ -170,15 +170,18 @@ export default function Dashboard() {
         </main>
       </div>
       ) : (
-
-
-
-
-
         <div className="no-results">
           <p>No results found. Please complete the questionnaire first.</p>
         </div>
       )}
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
