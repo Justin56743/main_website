@@ -12,14 +12,20 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { User } from "lucide-react" // Import an icon for fallback
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export function Header() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [imageError, setImageError] = useState(false)
 
   const handleSignOut = async () => {
     await signOut({ redirect: false })
     router.push('/')
+  }
+
+  const handleImageError = () => {
+    setImageError(true)
   }
 
   return (
@@ -34,19 +40,20 @@ export function Header() {
           ) : session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="rounded-full h-10 w-10 p-0">
-                  {session.user?.image ? (
+                <Button variant="outline" className="rounded-full h-10 w-10 p-0 overflow-hidden">
+                  {session.user?.image && !imageError ? (
                     <Image
                       src={session.user.image}
                       alt="Profile photo"
-                      width={32}
-                      height={32}
-                      className="rounded-full"
-                      referrerPolicy="no-referrer"
+                      width={40}
+                      height={40}
+                      className="rounded-full object-cover"
+                      onError={handleImageError}
+                      unoptimized
                     />
                   ) : (
-                    <div className="bg-muted/80 rounded-full h-8 w-8 flex items-center justify-center">
-                      <User className="h-4 w-4" />
+                    <div className="bg-muted/80 rounded-full h-10 w-10 flex items-center justify-center">
+                      <User className="h-5 w-5" />
                     </div>
                   )}
                 </Button>
@@ -54,15 +61,20 @@ export function Header() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>
                   <div className="flex items-center gap-3">
-                    {session.user?.image && (
+                    {session.user?.image && !imageError ? (
                       <Image
                         src={session.user.image}
                         alt="Profile photo"
-                        width={32}
-                        height={32}
-                        className="rounded-full"
-                        referrerPolicy="no-referrer"
+                        width={40}
+                        height={40}
+                        className="rounded-full object-cover"
+                        onError={handleImageError}
+                        unoptimized
                       />
+                    ) : (
+                      <div className="bg-muted/80 rounded-full h-10 w-10 flex items-center justify-center">
+                        <User className="h-5 w-5" />
+                      </div>
                     )}
                     <div className="flex flex-col">
                       <p className="text-sm font-medium leading-none">

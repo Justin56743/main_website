@@ -20,6 +20,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login", // Your custom login page route
   },
   callbacks: {
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.image = user.image;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.image = user.image;
+      }
+      return token;
+    },
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`
